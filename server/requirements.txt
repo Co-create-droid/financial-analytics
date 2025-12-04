@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+sqlalchemy
+pymysql
+requests
+faker
+python-dotenv
+cryptography
