@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import {
@@ -8,7 +9,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { motion } from "framer-motion";
 import { Code2 } from "lucide-react";
 
@@ -32,7 +33,7 @@ import { saveReport } from "@/lib/api";
 interface ResultsTableProps {
   data: Record<string, any>[];
   sql: string;
-  query?: string; // Add query prop
+  query?: string;
 }
 
 export function ResultsTable({ data, sql, query }: ResultsTableProps) {
@@ -56,13 +57,13 @@ export function ResultsTable({ data, sql, query }: ResultsTableProps) {
 
   const formatValue = (key: string, value: any) => {
     if (value === null || value === undefined) return "-";
-    
+
     const keyLower = key.toLowerCase();
 
     // Currency formatting
     if (
-      keyLower.includes("amount") || 
-      keyLower.includes("price") || 
+      keyLower.includes("amount") ||
+      keyLower.includes("price") ||
       keyLower.includes("balance") ||
       keyLower.includes("spent") ||
       keyLower.includes("cost") ||
@@ -74,7 +75,7 @@ export function ResultsTable({ data, sql, query }: ResultsTableProps) {
       if (!isNaN(num)) {
         return new Intl.NumberFormat("en-US", {
           style: "currency",
-          currency: "USD",
+          currency: "INR",
           minimumFractionDigits: 2,
           maximumFractionDigits: 2,
         }).format(num);
@@ -91,17 +92,18 @@ export function ResultsTable({ data, sql, query }: ResultsTableProps) {
       }
     }
 
-    // Round other numbers to 2 decimal places if they have decimals
-    if (typeof value === 'number' && !Number.isInteger(value)) {
-        return value.toFixed(2);
+    if (typeof value === "number" && !Number.isInteger(value)) {
+      return value.toFixed(2);
     }
 
     return value;
   };
 
   const handleExportCSV = () => {
-    const header = columns.join(",");
-    const rows = data.map(row => columns.map(col => JSON.stringify(row[col])).join(","));
+    const header = ["#", ...columns].join(",");
+    const rows = data.map((row, index) =>
+      [index + 1, ...columns.map((col) => JSON.stringify(row[col]))].join(",")
+    );
     const csvContent = [header, ...rows].join("\n");
     const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
     saveAs(blob, "financial_data.csv");
@@ -114,7 +116,6 @@ export function ResultsTable({ data, sql, query }: ResultsTableProps) {
       await saveReport(reportName, query);
       setIsDialogOpen(false);
       setReportName("");
-      // Ideally show a toast here
     } catch (error) {
       console.error("Failed to save report", error);
     } finally {
@@ -131,67 +132,81 @@ export function ResultsTable({ data, sql, query }: ResultsTableProps) {
     >
       <Card className="overflow-hidden border-none shadow-xl bg-background/60 backdrop-blur-md">
         <CardHeader className="bg-muted/30 border-b border-border/50 flex flex-row items-center justify-between">
-           <div className="flex items-center gap-2 text-sm text-foreground font-medium max-w-[60%]">
-             <div className="p-1.5 bg-primary/10 rounded-md">
-                <Code2 className="w-4 h-4 text-primary" />
-             </div>
-             <span className="truncate" title={query}>{query || "Query Results"}</span>
-             <span className="text-xs text-muted-foreground font-mono ml-2 px-2 py-0.5 bg-muted rounded border border-border hidden lg:inline-block max-w-[200px] truncate" title={sql}>
-                {sql}
-             </span>
-           </div>
-           <div className="flex gap-2">
-             <Button variant="outline" size="sm" onClick={handleExportCSV}>
-               <Download className="w-4 h-4 mr-2" />
-               Export CSV
-             </Button>
-             
-             {query && (
-               <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-                 <DialogTrigger asChild>
-                   <Button variant="outline" size="sm">
-                     <Save className="w-4 h-4 mr-2" />
-                     Save Report
-                   </Button>
-                 </DialogTrigger>
-                 <DialogContent>
-                   <DialogHeader>
-                     <DialogTitle>Save Report</DialogTitle>
-                     <DialogDescription>
-                       Save this query to easily run it again later.
-                     </DialogDescription>
-                   </DialogHeader>
-                   <div className="grid gap-4 py-4">
-                     <div className="grid grid-cols-4 items-center gap-4">
-                       <Label htmlFor="name" className="text-right">
-                         Name
-                       </Label>
-                       <Input
-                         id="name"
-                         value={reportName}
-                         onChange={(e) => setReportName(e.target.value)}
-                         className="col-span-3"
-                         placeholder="e.g., High Value Transactions"
-                       />
-                     </div>
-                   </div>
-                   <DialogFooter>
-                     <Button onClick={handleSaveReport} disabled={isSaving || !reportName.trim()}>
-                       {isSaving ? "Saving..." : "Save"}
-                     </Button>
-                   </DialogFooter>
-                 </DialogContent>
-               </Dialog>
-             )}
-           </div>
+          <div className="flex items-center gap-2 text-sm text-foreground font-medium max-w-[60%]">
+            <div className="p-1.5 bg-primary/10 rounded-md">
+              <Code2 className="w-4 h-4 text-primary" />
+            </div>
+            <span className="truncate" title={query}>
+              {query || "Query Results"}
+            </span>
+            <span
+              className="text-xs text-muted-foreground font-mono ml-2 px-2 py-0.5 bg-muted rounded border border-border hidden lg:inline-block max-w-[200px] truncate"
+              title={sql}
+            >
+              {sql}
+            </span>
+          </div>
+          <div className="flex gap-2">
+            <Button variant="outline" size="sm" onClick={handleExportCSV}>
+              <Download className="w-4 h-4 mr-2" />
+              Export CSV
+            </Button>
+
+            {query && (
+              <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button variant="outline" size="sm">
+                    <Save className="w-4 h-4 mr-2" />
+                    Save Report
+                  </Button>
+                </DialogTrigger>
+                <DialogContent>
+                  <DialogHeader>
+                    <DialogTitle>Save Report</DialogTitle>
+                    <DialogDescription>
+                      Save this query to easily run it again later.
+                    </DialogDescription>
+                  </DialogHeader>
+                  <div className="grid gap-4 py-4">
+                    <div className="grid grid-cols-4 items-center gap-4">
+                      <Label htmlFor="name" className="text-right">
+                        Name
+                      </Label>
+                      <Input
+                        id="name"
+                        value={reportName}
+                        onChange={(e) => setReportName(e.target.value)}
+                        className="col-span-3"
+                        placeholder="e.g., High Value Transactions"
+                      />
+                    </div>
+                  </div>
+                  <DialogFooter>
+                    <Button
+                      onClick={handleSaveReport}
+                      disabled={isSaving || !reportName.trim()}
+                    >
+                      {isSaving ? "Saving..." : "Save"}
+                    </Button>
+                  </DialogFooter>
+                </DialogContent>
+              </Dialog>
+            )}
+          </div>
         </CardHeader>
         <CardContent className="p-0">
           <div className="overflow-x-auto">
             <Table>
               <TableHeader>
                 <TableRow className="hover:bg-transparent">
+                  <TableHead className="font-semibold text-primary w-24 text-center">
+                    #
+                  </TableHead>
                   {columns.map((col) => (
-                    <TableHead key={col} className="font-semibold text-primary capitalize whitespace-nowrap">
+                    <TableHead
+                      key={col}
+                      className="font-semibold text-primary capitalize whitespace-nowrap"
+                    >
                       {col.replace(/_/g, " ")}
                     </TableHead>
                   ))}
@@ -199,9 +214,18 @@ export function ResultsTable({ data, sql, query }: ResultsTableProps) {
               </TableHeader>
               <TableBody>
                 {data.map((row, i) => (
-                  <TableRow key={i} className="hover:bg-muted/50 transition-colors">
+                  <TableRow
+                    key={i}
+                    className="hover:bg-muted/50 transition-colors"
+                  >
+                    <TableCell className="font-medium text-center text-muted-foreground w-12">
+                      {i + 1}
+                    </TableCell>
                     {columns.map((col) => (
-                      <TableCell key={`${i}-${col}`} className="font-medium whitespace-nowrap">
+                      <TableCell
+                        key={`${i}-${col}`}
+                        className="font-medium whitespace-nowrap"
+                      >
                         {formatValue(col, row[col])}
                       </TableCell>
                     ))}

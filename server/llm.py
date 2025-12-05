@@ -5,7 +5,6 @@ from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
 # Ollama Cloud Configuration
-# Default to local Ollama instance if not specified
 OLLAMA_ENDPOINT = os.getenv("OLLAMA_ENDPOINT", "http://localhost:11434/api/generate")
 OLLAMA_API_KEY = os.getenv("OLLAMA_API_KEY", "")
 MODEL_NAME = "gpt-oss:120b-cloud" 

@@ -3,9 +3,16 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDashboardData, DashboardData } from "@/lib/api";
-import { 
-  BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, 
-  AreaChart, Area 
+import {
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  ResponsiveContainer,
+  AreaChart,
+  Area,
 } from "recharts";
 import { DollarSign, Activity, CreditCard } from "lucide-react";
 import { motion } from "framer-motion";
@@ -19,11 +26,14 @@ export function DashboardCharts() {
 
   if (!data) return null;
 
-  const formatCurrency = (val: number) => 
-    new Intl.NumberFormat("en-US", { style: "currency", currency: "USD" }).format(val);
+  const formatCurrency = (val: number) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "INR",
+    }).format(val);
 
   return (
-    <motion.div 
+    <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
@@ -37,8 +47,12 @@ export function DashboardCharts() {
             <DollarSign className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(data.summary.total_volume)}</div>
-            <p className="text-xs text-muted-foreground">Lifetime transaction volume</p>
+            <div className="text-2xl font-bold">
+              {formatCurrency(data.summary.total_volume)}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Lifetime transaction volume
+            </p>
           </CardContent>
         </Card>
         <Card className="bg-primary/5 border-primary/10">
@@ -48,17 +62,25 @@ export function DashboardCharts() {
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{data.summary.total_count}</div>
-            <p className="text-xs text-muted-foreground">Total transactions processed</p>
+            <p className="text-xs text-muted-foreground">
+              Total transactions processed
+            </p>
           </CardContent>
         </Card>
         <Card className="bg-primary/5 border-primary/10">
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Avg. Transaction</CardTitle>
+            <CardTitle className="text-sm font-medium">
+              Avg. Transaction
+            </CardTitle>
             <CreditCard className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{formatCurrency(data.summary.avg_amount)}</div>
-            <p className="text-xs text-muted-foreground">Average per transaction</p>
+            <div className="text-2xl font-bold">
+              {formatCurrency(data.summary.avg_amount)}
+            </div>
+            <p className="text-xs text-muted-foreground">
+              Average per transaction
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -74,25 +96,37 @@ export function DashboardCharts() {
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={data.by_category}>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                  <XAxis dataKey="name" fontSize={12} tickLine={false} axisLine={false} />
-                  <YAxis 
-                    fontSize={12} 
-                    tickLine={false} 
+                  <XAxis
+                    dataKey="name"
+                    fontSize={12}
+                    tickLine={false}
+                    axisLine={false}
+                  />
+                  <YAxis
+                    fontSize={12}
+                    tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `$${value}`}
                   />
-                  <Tooltip 
-                    cursor={{ fill: 'transparent' }}
-                    contentStyle={{ 
-                      borderRadius: '8px', 
-                      border: 'none', 
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                      backgroundColor: 'var(--card)',
-                      color: 'var(--card-foreground)'
+                  <Tooltip
+                    cursor={{ fill: "transparent" }}
+                    contentStyle={{
+                      borderRadius: "8px",
+                      border: "none",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                      backgroundColor: "var(--card)",
+                      color: "var(--card-foreground)",
                     }}
-                    formatter={(value: number) => [formatCurrency(value), "Amount"]}
+                    formatter={(value: number) => [
+                      formatCurrency(value),
+                      "Amount",
+                    ]}
                   />
-                  <Bar dataKey="value" fill="var(--primary)" radius={[4, 4, 0, 0]} />
+                  <Bar
+                    dataKey="value"
+                    fill="var(--primary)"
+                    radius={[4, 4, 0, 0]}
+                  />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -108,36 +142,64 @@ export function DashboardCharts() {
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={data.daily_trend}>
                   <defs>
-                    <linearGradient id="colorAmount" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="5%" stopColor="var(--primary)" stopOpacity={0.3}/>
-                      <stop offset="95%" stopColor="var(--primary)" stopOpacity={0}/>
+                    <linearGradient
+                      id="colorAmount"
+                      x1="0"
+                      y1="0"
+                      x2="0"
+                      y2="1"
+                    >
+                      <stop
+                        offset="5%"
+                        stopColor="var(--primary)"
+                        stopOpacity={0.3}
+                      />
+                      <stop
+                        offset="95%"
+                        stopColor="var(--primary)"
+                        stopOpacity={0}
+                      />
                     </linearGradient>
                   </defs>
                   <CartesianGrid strokeDasharray="3 3" opacity={0.2} />
-                  <XAxis 
-                    dataKey="date" 
-                    fontSize={12} 
-                    tickLine={false} 
+                  <XAxis
+                    dataKey="date"
+                    fontSize={12}
+                    tickLine={false}
                     axisLine={false}
-                    tickFormatter={(str) => new Date(str).toLocaleDateString(undefined, {month: 'short', day: 'numeric'})}
+                    tickFormatter={(str) =>
+                      new Date(str).toLocaleDateString(undefined, {
+                        month: "short",
+                        day: "numeric",
+                      })
+                    }
                   />
-                  <YAxis 
-                    fontSize={12} 
-                    tickLine={false} 
+                  <YAxis
+                    fontSize={12}
+                    tickLine={false}
                     axisLine={false}
                     tickFormatter={(value) => `$${value}`}
                   />
-                  <Tooltip 
-                    contentStyle={{ 
-                      borderRadius: '8px', 
-                      border: 'none', 
-                      boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-                      backgroundColor: 'var(--card)',
-                      color: 'var(--card-foreground)'
+                  <Tooltip
+                    contentStyle={{
+                      borderRadius: "8px",
+                      border: "none",
+                      boxShadow: "0 4px 12px rgba(0,0,0,0.1)",
+                      backgroundColor: "var(--card)",
+                      color: "var(--card-foreground)",
                     }}
-                    formatter={(value: number) => [formatCurrency(value), "Amount"]}
+                    formatter={(value: number) => [
+                      formatCurrency(value),
+                      "Amount",
+                    ]}
                   />
-                  <Area type="monotone" dataKey="amount" stroke="var(--primary)" fillOpacity={1} fill="url(#colorAmount)" />
+                  <Area
+                    type="monotone"
+                    dataKey="amount"
+                    stroke="var(--primary)"
+                    fillOpacity={1}
+                    fill="url(#colorAmount)"
+                  />
                 </AreaChart>
               </ResponsiveContainer>
             </div>

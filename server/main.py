@@ -11,10 +11,10 @@ app = FastAPI(title="Financial Analyst Tool")
 # Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"],  # Allow frontend origin
+    allow_origins=["http://localhost:3000"], 
     allow_credentials=True,
-    allow_methods=["*"],  # Allow all methods
-    allow_headers=["*"],  # Allow all headers
+    allow_methods=["*"],  
+    allow_headers=["*"], 
 )
 
 class QueryRequest(BaseModel):
@@ -59,7 +59,6 @@ def get_dashboard_data(db: Session = Depends(get_db)):
     ).group_by(Transaction.category).all()
     
     # Daily Trend (Last 30 days)
-    # Note: For simplicity in this demo, we just group by date for all data
     daily_data = db.query(
         Transaction.date,
         func.sum(Transaction.amount).label("total")
@@ -76,7 +75,6 @@ def get_dashboard_data(db: Session = Depends(get_db)):
     }
 
 # Reporting Endpoints
-
 class ReportCreate(BaseModel):
     name: str
     query: str
@@ -109,11 +107,11 @@ def delete_report(report_id: int, db: Session = Depends(get_db)):
     db.commit()
     return {"message": "Report deleted"}
 
-# Ensure tables are created
+
 @app.on_event("startup")
 def startup_event():
     from database import engine, Base
-    from models import SavedReport # Make sure model is imported
+    from models import SavedReport
     Base.metadata.create_all(bind=engine)
 
 if __name__ == "__main__":
